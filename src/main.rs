@@ -3,21 +3,22 @@ use std::fs;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let (query, filename) = parse_args(&args);
-
-    let contents = fs::read_to_string(filename).expect("There was a problem opening file");
-
-    let lines = match_lines(&contents, query);
+    let config = parse_args(&args);
+    let contents = fs::read_to_string(config.filename).expect("There was a problem opening file");
+    let lines = match_lines(&contents, &config.query);
 
     println!("{:?}", lines)
 }
 
+struct Config {
+    query: String,
+    filename: String
+}
 
-
-fn parse_args(args: &[String]) -> (&String, &String) {
-    let query = &args[1];
-    let filename = &args[2];
-    (query, filename)
+fn parse_args(args: &[String]) -> Config {
+    let query = args[1].clone();
+    let filename = args[2].clone();
+    Config {query, filename}
 }
 
 fn match_lines(s: &String, q: &String) -> Vec<String> {
