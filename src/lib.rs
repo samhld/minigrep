@@ -51,4 +51,15 @@ Confirmed.");
 
         assert_eq!(vec!["the word 'public'."], match_lines(&contents, &query))
     }
+
+    #[test]
+    fn two_results() {
+        let query = String::from("t");
+        let contents = String::from("\
+This is text containing
+the word 'public'.
+Confirmed.");
+        
+        assert_eq!(vec!["This is text containing","the word 'public'."], match_lines(&contents, &query))
+    }
 }
