@@ -8,9 +8,16 @@ fn main() {
         println!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
+
+    println!("Searching for {} in file {}", config.query, config.filename); 
+
+    run(config)
+
+}
+
+fn run(config: Config) {
     let contents = fs::read_to_string(config.filename).expect("There was a problem opening file");
     let lines = match_lines(&contents, &config.query);
-
     println!("{:?}", lines)
 }
 
