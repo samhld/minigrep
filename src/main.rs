@@ -9,10 +9,9 @@ fn main() {
         eprintln!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
-    println!("Searching for {} in file {}", config.query, config.filename); 
 
     match run(config) {
-        Ok(()) => println!("Process complete"),
+        Ok(()) => (),
         Err(e) => {
             eprintln!("Program error: {}", e);
             process::exit(1);
