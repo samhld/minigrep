@@ -36,6 +36,17 @@ pub fn match_lines(s: &String, q: &String) -> Vec<String> {
     lines
 }
 
+pub fn match_lines_case_insensitive(s: &String, q: &String) -> Vec<String> {
+    let mut lines = Vec::new();
+    let q = q.to_lowercase();
+    for line in s.lines() {
+        if line.to_lowercase().contains(&q) {
+            lines.push(line.to_string())
+        }
+    }
+    lines
+}
+
 // Tests
 #[cfg(test)]
 mod tests {
@@ -61,5 +72,16 @@ the word 'public'.
 Confirmed.");
         
         assert_eq!(vec!["This is text containing","the word 'public'."], match_lines(&contents, &query))
+    }
+
+    #[test]
+    fn match_case_insensitive() {
+        let query = String::from("TH");
+        let contents = String::from("\
+This is text containing
+the word 'public'.
+Confirmed.");
+        
+        assert_eq!(vec!["This is text containing","the word 'public'."], match_lines_case_insensitive(&contents, &query))
     }
 }
