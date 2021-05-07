@@ -6,7 +6,7 @@ use minigrep::{Config, run};
 fn main() {
     let args: Vec<String> = env::args().collect();
     let config = Config::new(&args).unwrap_or_else(|err| {
-        println!("Problem parsing arguments: {}", err);
+        eprintln!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
     println!("Searching for {} in file {}", config.query, config.filename); 
@@ -14,7 +14,7 @@ fn main() {
     match run(config) {
         Ok(()) => println!("Process complete"),
         Err(e) => {
-            println!("Program error: {}", e);
+            eprintln!("Program error: {}", e);
             process::exit(1);
         }
     }
