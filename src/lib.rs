@@ -36,25 +36,16 @@ impl Config {
     }
 }
 
-pub fn match_lines(s: &String, q: &String) -> Vec<String> {
-    let mut lines = Vec::new();
-    for line in s.lines() {
-        if line.contains(q) {
-            lines.push(line.to_string())
-        }
-    }
-    lines
+pub fn match_lines<'a>(s: &'a str, q: &str) -> Vec<&'a str> {
+    s.lines().filter(|line| line.contains(q)).collect()
 }
 
-pub fn match_lines_case_insensitive(s: &String, q: &String) -> Vec<String> {
-    let mut lines = Vec::new();
-    let q = q.to_lowercase();
-    for line in s.lines() {
-        if line.to_lowercase().contains(&q) {
-            lines.push(line.to_string())
-        }
-    }
-    lines
+pub fn match_lines_case_insensitive<'a>(s: &'a str, q: &str) -> Vec<&'a str> {
+    s.lines()
+            .filter(|line| line
+            .to_lowercase()
+            .contains(&q.to_lowercase()))
+            .collect()
 }
 
 // Tests
